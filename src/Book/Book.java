@@ -2,19 +2,20 @@ package Book;
 
 
 import Enums.Status;
+import Human.Author;
 
 import java.time.LocalDate;
 
 public abstract class Book {
    private long book_ID;
-   private String author;
+   private Author author;
    private String name;
    private double price;
    private Status status;
    private int edition;
    private LocalDate date_of_purchase;
 
-    public Book(long book_ID, String author, String name, double price, Status status, int edition, LocalDate date_of_purchase) {
+    public Book(long book_ID, Author author, String name, double price, Status status, int edition, LocalDate date_of_purchase) {
         this.book_ID = book_ID;
         this.author = author;
         this.name = name;
@@ -32,11 +33,11 @@ public abstract class Book {
         this.book_ID = book_ID;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
