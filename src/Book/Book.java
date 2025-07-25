@@ -7,7 +7,7 @@ import Human.Author;
 import java.time.LocalDate;
 
 public abstract class Book {
-   private long book_ID;
+   private long bookId;
    private Author author;
    private String name;
    private double price;
@@ -15,8 +15,8 @@ public abstract class Book {
    private int edition;
    private LocalDate date_of_purchase;
 
-    public Book(long book_ID, Author author, String name, double price, Status status, int edition, LocalDate date_of_purchase) {
-        this.book_ID = book_ID;
+    public Book(long bookId, Author author, String name, double price, Status status, int edition, LocalDate date_of_purchase) {
+        this.bookId = bookId;
         this.author = author;
         this.name = name;
         this.price = price;
@@ -25,12 +25,12 @@ public abstract class Book {
         this.date_of_purchase = date_of_purchase;
     }
 
-    public long getBook_ID() {
-        return book_ID;
+    public long getBookId() {
+        return bookId;
     }
 
-    public void setBook_ID(long book_ID) {
-        this.book_ID = book_ID;
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
     }
 
     public Author getAuthor() {
