@@ -30,89 +30,104 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while(true){
-            System.out.println("1) Kitap ekleme");
-            System.out.println("2) Kitap silme");
-            System.out.println("3) Kitap arama");
-            System.out.println("4) Kitap kiralama");
-            System.out.println("5) Kitap iade etme");
-            System.out.println("6) Kitap bilgisi guncelleme");
-            System.out.println("0) Islemleri sonlandir");
+            System.out.println("1) Add new book");
+            System.out.println("2) Delete book");
+            System.out.println("3) Search book");
+            System.out.println("4) Lend book");
+            System.out.println("5) Return book");
+            System.out.println("6) Update book info");
+            System.out.println("0) Stop application");
 
             int input = scanner.nextInt();
             scanner.nextLine();
             switch(input){
                 case 1:
-                    System.out.println("Kitabin idsini giriniz.");
+                    System.out.println("Please enter book ID or Press 0 to return menu");
                     long kitapId = scanner.nextLong();
                     scanner.nextLine();
-                    System.out.println("Kitabin yazarini giriniz.");
+                    if(kitapId == 0) break;
+                    System.out.println("Please enter author name or Press 0 to return menu ");
                     String yazarAdi = scanner.nextLine();
+                    if(yazarAdi.equals("0")) break;
                     Author yazarObj = new Author(yazarAdi);
-                    System.out.println("Kitabin adini giriniz.");
+                    System.out.println("Please enter book's name or Press 0 to return menu");
                     String kitapAdi = scanner.nextLine();
-                    System.out.println("Kitabin tutarini giriniz.");
-                    double kitapTutari = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.println("Kitabin kacinci basim oldugunu giriniz.");
+                    if(kitapAdi.equals("0")) break;
+                    System.out.println("Please enter price or Press 0 to return menu");
+                    String kitapTutari = scanner.nextLine().replace(",", ".");
+                    double doubleKitapTutari = Double.parseDouble(kitapTutari);
+                    if(doubleKitapTutari == 0) break;
+                    System.out.println("Please enter book's edition or Press 0 to return menu");
                     int kitapBasimi = scanner.nextInt();
                     scanner.nextLine();
+                    if(kitapBasimi == 0) break;
                     LocalDate eklenmeTarihi = LocalDate.now();
-                    System.out.println("Kitabin kategorisini giriniz.");
+                    System.out.println("Please enter book's category or Press 0 to return menu");
                         String categoryInfo = scanner.nextLine();
+                        if(categoryInfo.equals("0")) break;
                         switch (categoryInfo.toLowerCase()){
                             case "classics":
-                                Book bookClassic = new Classics(kitapId, yazarObj, kitapAdi, kitapTutari, kitapBasimi, eklenmeTarihi, Category.CLASSICS);
+                                Book bookClassic = new Classics(kitapId, yazarObj, kitapAdi, doubleKitapTutari, kitapBasimi, eklenmeTarihi, Category.CLASSICS);
                                 library.newBook(bookClassic);
-                                System.out.println("Kitap eklendi.");
+                                System.out.println("Book successfully created!");
                                 break;
                             case "fantasy":
-                                Book bookFantasy = new Fantasy(kitapId, yazarObj, kitapAdi, kitapTutari, kitapBasimi, eklenmeTarihi, Category.FANTASY);
+                                Book bookFantasy = new Fantasy(kitapId, yazarObj, kitapAdi, doubleKitapTutari, kitapBasimi, eklenmeTarihi, Category.FANTASY);
                                 library.newBook(bookFantasy);
-                                System.out.println("Kitap eklendi.");
+                                System.out.println("Book successfully created!");
                                 break;
                             case "thriller":
-                                Book bookThriller = new Thriller(kitapId, yazarObj, kitapAdi, kitapTutari, kitapBasimi, eklenmeTarihi, Category.THRILLER);
+                                Book bookThriller = new Thriller(kitapId, yazarObj, kitapAdi, doubleKitapTutari, kitapBasimi, eklenmeTarihi, Category.THRILLER);
                                 library.newBook(bookThriller);
-                                System.out.println("Kitap eklendi.");
+                                System.out.println("Book successfully created!");
                                 break;
+                            default:
+                                System.out.println("Category is not match, please check and try again.");
                         }
                     break;
                 case 2:
-                    System.out.println("Silmek istediginiz kitabin adini giriniz.");
+                    System.out.println("Please enter book's name that need to deleted or Press 0 to return menu");
                     String silinecekKitapAdi = scanner.nextLine();
+                    if(silinecekKitapAdi.equals("0")) break;
                     library.deleteBook(library.getBooks(silinecekKitapAdi));
-                    System.out.println("Kitap silindi.");
+                    System.out.println("Successfully deleted.");
                     break;
                 case 3:
-                    System.out.println("1) id ile ara");
-                    System.out.println("2) kitap adi ile ara");
-                    System.out.println("3) yazar adi ile ara");
-                    System.out.println("4) kategori ile ara");
+                    System.out.println("1) Search with ID");
+                    System.out.println("2) Search with book's name");
+                    System.out.println("3) Search with author's name");
+                    System.out.println("4) Search with category");
+                    System.out.println("0) Press 0 to return menu");
                         int aramaTusu = scanner.nextInt();
                         scanner.nextLine();
+                        if(aramaTusu == 0) break;
                         switch (aramaTusu){
                             case 1:
-                                System.out.println("id giriniz.");
+                                System.out.println("Add ID or Press 0 to return menu");
                                 long aramaId = scanner.nextLong();
                                 scanner.nextLine();
+                                if(aramaId ==0) break;
                                 System.out.println(library.getBooks(aramaId));
                                 break;
                             case 2:
-                                System.out.println("kitap adini giriniz.");
+                                System.out.println("Add book's name or Press 0 to return menu ");
                                 String aramaKitapAdi = scanner.nextLine();
+                                if(aramaKitapAdi.equals("0")) break;
                                 System.out.println(library.getBooks(aramaKitapAdi));
                                 break;
                             case 3:
-                                System.out.println("yazar adini giriniz.");
+                                System.out.println("Add author's name or Press 0 to return menu");
                                 String aramaYazarAdi = scanner.nextLine();
+                                if(aramaYazarAdi.equals("0")) break;
                                 System.out.println(library.getBooks(new Author(aramaYazarAdi)));
                                 break;
                             case 4:
-                                System.out.println("1) Klasik turundeki kitaplar");
-                                System.out.println("2) Fantastik turundeki kitaplar");
-                                System.out.println("3) Korku turundeki kitaplar");
+                                System.out.println("Please choose 1 for Classics books or Press 0 to return menu");
+                                System.out.println("Please choose 2 for Fantasy books or Press 0 to return menu");
+                                System.out.println("Please choose 3 for Thriller books or Press 0 to return menu");
                                 int aramaKategori = scanner.nextInt();
                                 scanner.nextLine();
+                                if(aramaKategori == 0) break;
                                 switch (aramaKategori){
                                     case 1:
                                         System.out.println(library.getBooks(Category.CLASSICS));
@@ -128,11 +143,13 @@ public class Main {
                         }
                     break;
                 case 4:
-                    System.out.println("Kiralamak istediginiz kitabin adini giriniz.");
+                    System.out.println("Add book's name that you want to lend or Press 0 to return menu");
                     String kiralananKitap = scanner.nextLine();
-                    System.out.println("Uyenin adini giriniz.");
+                    if(kiralananKitap.equals("0")) break;
+                    System.out.println("Please add member's name or Press 0 to return menu");
                     String kiralayanUyeAdi = scanner.nextLine();
-                    System.out.println("Uyenin idsini giriniz");
+                    if(kiralayanUyeAdi.equals("0")) break;
+                    System.out.println("Please add member's ID");
                     long kiralayanUyeIdsi = scanner.nextInt();
                     scanner.nextLine();
                     if(librarian.verifyMemberWithId(kiralayanUyeIdsi)){
@@ -142,12 +159,15 @@ public class Main {
                         }
                     }
                         else{
-                        System.out.println("Add address info");
+                        System.out.println("Add address info or Press 0 to return menu");
                         String kiralayanAdres = scanner.nextLine();
-                        System.out.println("Add phone number");
+                        if(kiralayanAdres.equals("0")) break;
+                        System.out.println("Add phone number or Press 0 to return menu");
                         String kiralayanTelefon = scanner.nextLine();
-                        System.out.println("Add type");
+                        if(kiralayanTelefon.equals("0")) break;
+                        System.out.println("Add type or Press 0 to return menu");
                         String type = scanner.nextLine();
+                        if(type.equals("0")) break;
                         switch (type.toLowerCase()){
                             case "student":
                                 memberRecord newMemberStudent = new Student(kiralayanUyeIdsi, membershipType.STUDENT, kiralayanUyeAdi, kiralayanAdres, kiralayanTelefon);
@@ -162,60 +182,67 @@ public class Main {
                                 librarian.issueBook(library.getBooks(kiralananKitap), newMemberFaculty);
                                 break;
                         }
-
-
                     }
                 break;
                 case 5:
-                    System.out.println("Please add book's name for return.");
+                    System.out.println("Please add book's name for return or Press 0 to return menu.");
                     String iadeEdilenKitap = scanner.nextLine();
-                    System.out.println("Please add owner's name.");
+                    if(iadeEdilenKitap.equals("0")) break;
+                    System.out.println("Please add owner's name or Press 0 to return menu.");
                     String iadeEden = scanner.nextLine();
+                    if(iadeEden.equals("0")) break;
                     library.takeBackBook(library.getReaderByName(iadeEden), library.getBooks(iadeEdilenKitap));
                     librarian.returnBook(library.getBooks(iadeEdilenKitap), librarian.getMemberRecordByName(iadeEden));
                     break;
                 case 6:
-                    System.out.println("Please add book name which should be updated.");
+                    System.out.println("Please add book name which should be updated or Press 0 to return menu.");
                     String updatedBook = scanner.nextLine();
+                    if(updatedBook.equals("0")) break;
                     Book updatedBookObj = library.getBooks(updatedBook);
                     System.out.println("To update book id please choose 1");
                     System.out.println("To update author please choose 2");
                     System.out.println("To update book name please choose 3");
                     System.out.println("To update price please choose 4");
                     System.out.println("To update edition please choose 5");
+                    System.out.println("Press 0 to return menu");
                     int updatedInput = scanner.nextInt();
                     scanner.nextLine();
                     switch (updatedInput){
                         case 1:
-                            System.out.println("Please update id");
+                            System.out.println("Please update id or Press 0 to return menu");
                             long newId = scanner.nextInt();
                             scanner.nextLine();
+                            if(newId == 0) break;
                             updatedBookObj.setBookId(newId);
                             System.out.println("Successfully updated.");
                             break;
                         case 2:
-                            System.out.println("Please update author's name");
+                            System.out.println("Please update author's name or Press 0 to return menu");
                             String newAuthorName = scanner.nextLine();
+                            if(newAuthorName.equals("0")) break;
                             updatedBookObj.setAuthor(new Author(newAuthorName));
                             System.out.println("Successfully updated.");
                             break;
                         case 3:
-                            System.out.println("Please update book's name");
+                            System.out.println("Please update book's name or Press 0 to return menu");
                             String newBookName = scanner.nextLine();
+                            if(newBookName.equals("0")) break;
                             updatedBookObj.setName(newBookName);
                             System.out.println("Successfully updated.");
                             break;
                         case 4:
-                            System.out.println("Please update price");
+                            System.out.println("Please update price or Press 0 to return menu");
                             double newPrice = scanner.nextDouble();
                             scanner.nextLine();
+                            if(newPrice == 0) break;
                             updatedBookObj.setPrice(newPrice);
                             System.out.println("Successfully updated.");
                             break;
                         case 5:
-                            System.out.println("Please update edition");
+                            System.out.println("Please update edition or Press 0 to return menu");
                             int newEdition = scanner.nextInt();
                             scanner.nextLine();
+                            if(newEdition == 0) break;
                             updatedBookObj.setEdition(newEdition);
                             System.out.println("Successfully updated.");
                             break;
