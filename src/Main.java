@@ -3,9 +3,8 @@ import Book.Classics;
 import Book.Fantasy;
 import Book.Thriller;
 import Enums.Category;
-import Human.Author;
-import Human.Librarian;
-import Human.Reader;
+import Enums.membershipType;
+import Human.*;
 import Library.Library;
 
 import java.time.LocalDate;
@@ -127,14 +126,104 @@ public class Main {
                                 }
                                 break;
                         }
-
+                    break;
                 case 4:
                     System.out.println("Kiralamak istediginiz kitabin adini giriniz.");
                     String kiralananKitap = scanner.nextLine();
                     System.out.println("Uyenin adini giriniz.");
-                    String kiralayanUye = scanner.nextLine();
-                    library.lendBook(new Reader(kiralayanUye), library.getBooks(kiralananKitap));
-                    
+                    String kiralayanUyeAdi = scanner.nextLine();
+                    System.out.println("Uyenin idsini giriniz");
+                    long kiralayanUyeIdsi = scanner.nextInt();
+                    scanner.nextLine();
+                    if(librarian.verifyMemberWithId(kiralayanUyeIdsi)){
+                        if(librarian.canBarrowBook(librarian.getMemberRecordById(kiralayanUyeIdsi))){
+                            library.lendBook(new Reader(kiralayanUyeAdi), library.getBooks(kiralananKitap));
+                            librarian.issueBook(library.getBooks(kiralananKitap), librarian.getMemberRecordById(kiralayanUyeIdsi));
+                        }
+                    }
+                        else{
+                        System.out.println("Add address info");
+                        String kiralayanAdres = scanner.nextLine();
+                        System.out.println("Add phone number");
+                        String kiralayanTelefon = scanner.nextLine();
+                        System.out.println("Add type");
+                        String type = scanner.nextLine();
+                        switch (type.toLowerCase()){
+                            case "student":
+                                memberRecord newMemberStudent = new Student(kiralayanUyeIdsi, membershipType.STUDENT, kiralayanUyeAdi, kiralayanAdres, kiralayanTelefon);
+                                librarian.addNewMember(newMemberStudent);
+                                library.lendBook(new Reader(kiralayanUyeAdi), library.getBooks(kiralananKitap));
+                                librarian.issueBook(library.getBooks(kiralananKitap), newMemberStudent);
+                                break;
+                            case "faculty":
+                                memberRecord newMemberFaculty = new Student(kiralayanUyeIdsi, membershipType.FACULTY, kiralayanUyeAdi, kiralayanAdres, kiralayanTelefon);
+                                librarian.addNewMember(newMemberFaculty);
+                                library.lendBook(new Reader(kiralayanUyeAdi), library.getBooks(kiralananKitap));
+                                librarian.issueBook(library.getBooks(kiralananKitap), newMemberFaculty);
+                                break;
+                        }
+
+
+                    }
+                break;
+                case 5:
+                    System.out.println("Please add book's name for return.");
+                    String iadeEdilenKitap = scanner.nextLine();
+                    System.out.println("Please add owner's name.");
+                    String iadeEden = scanner.nextLine();
+                    library.takeBackBook(library.getReaderByName(iadeEden), library.getBooks(iadeEdilenKitap));
+                    librarian.returnBook(library.getBooks(iadeEdilenKitap), librarian.getMemberRecordByName(iadeEden));
+                    break;
+                case 6:
+                    System.out.println("Please add book name which should be updated.");
+                    String updatedBook = scanner.nextLine();
+                    Book updatedBookObj = library.getBooks(updatedBook);
+                    System.out.println("To update book id please choose 1");
+                    System.out.println("To update author please choose 2");
+                    System.out.println("To update book name please choose 3");
+                    System.out.println("To update price please choose 4");
+                    System.out.println("To update edition please choose 5");
+                    int updatedInput = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (updatedInput){
+                        case 1:
+                            System.out.println("Please update id");
+                            long newId = scanner.nextInt();
+                            scanner.nextLine();
+                            updatedBookObj.setBookId(newId);
+                            System.out.println("Successfully updated.");
+                            break;
+                        case 2:
+                            System.out.println("Please update author's name");
+                            String newAuthorName = scanner.nextLine();
+                            updatedBookObj.setAuthor(new Author(newAuthorName));
+                            System.out.println("Successfully updated.");
+                            break;
+                        case 3:
+                            System.out.println("Please update book's name");
+                            String newBookName = scanner.nextLine();
+                            updatedBookObj.setName(newBookName);
+                            System.out.println("Successfully updated.");
+                            break;
+                        case 4:
+                            System.out.println("Please update price");
+                            double newPrice = scanner.nextDouble();
+                            scanner.nextLine();
+                            updatedBookObj.setPrice(newPrice);
+                            System.out.println("Successfully updated.");
+                            break;
+                        case 5:
+                            System.out.println("Please update edition");
+                            int newEdition = scanner.nextInt();
+                            scanner.nextLine();
+                            updatedBookObj.setEdition(newEdition);
+                            System.out.println("Successfully updated.");
+                            break;
+                    }
+                    break;
+                case 0:
+                    System.out.println("Process completed.");
+                    return;
             }
         }
 

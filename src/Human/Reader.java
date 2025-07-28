@@ -17,6 +17,16 @@ public class Reader extends Person {
         super(name);
     }
 
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
     public void purchase_book(Book purchasedBook){
         books.add(purchasedBook);
         currentList.add(purchasedBook);

@@ -15,6 +15,16 @@ public class Author extends Person{
         super(name);
     }
 
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
     public void new_Book(Book newBook){
         books.add(newBook);
     }
@@ -30,8 +40,6 @@ public class Author extends Person{
 
     @Override
     public String toString() {
-        return "Author{" +
-                "books=" + books +
-                '}';
+        return super.toString();
     }
 }

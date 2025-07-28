@@ -6,19 +6,17 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class memberRecord {
-    protected Long memberId;
-    protected membershipType type;
-    protected LocalDate dateOfMembership;
-    protected int noBookIssued;
-    protected int maxBookLimit;
-    protected String name;
-    protected String address;
-    protected String phoneNo;
+    private Long memberId;
+    private membershipType type;
+    private int noBookIssued;
+    private int maxBookLimit;
+    private String name;
+    private String address;
+    private String phoneNo;
 
-    public memberRecord(Long memberId, membershipType type, LocalDate dateOfMembership, int noBookIssued, int maxBookLimit, String name, String address, String phoneNo) {
+    public memberRecord(Long memberId, membershipType type, String name, String address, String phoneNo) {
         this.memberId = memberId;
         this.type = type;
-        this.dateOfMembership = dateOfMembership;
         this.noBookIssued = 0;
         this.maxBookLimit = 5;
         this.name = name;
@@ -26,11 +24,22 @@ public class memberRecord {
         this.phoneNo = phoneNo;
     }
 
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void getMember(){
         System.out.println("Member ID: " + memberId);
         System.out.println("Member name: " + name);
         System.out.println("Issued Book: " + noBookIssued);
-        System.out.println("Date of Membership: " + dateOfMembership);
         System.out.println("Phone no: " + phoneNo);
         System.out.println("Address: " + address);
     }

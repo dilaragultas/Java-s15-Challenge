@@ -70,6 +70,24 @@ public class Library {
         return readers;
     }
 
+    public Reader getReaderByBook(Book book){
+        for(Map.Entry<Reader, Set<Book>> item: readersOfBook.entrySet()){
+            if(item.getValue().contains(book)){
+                return item.getKey();
+            }
+        }
+        return null;
+    }
+
+    public Reader getReaderByName(String name){
+        for(Reader item: readers){
+            if(item.getName().equals(name)){
+                return item;
+            }
+        }
+        return null;
+    }
+
     public void newBook(Book book){
         books.add(book);
     }

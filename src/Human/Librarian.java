@@ -1,6 +1,7 @@
 package Human;
 
 import Book.Book;
+import Enums.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,30 @@ public class Librarian {
         System.out.println(bookName);
     }
 
+    public void addNewMember(memberRecord member){
+        if(!registeredMember.contains(member)){
+            registeredMember.add(member);
+        }
+    }
+
+    public memberRecord getMemberRecordById(long memberId){
+        for(memberRecord item: registeredMember){
+            if(item.getMemberId() == memberId){
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public memberRecord getMemberRecordByName(String name){
+        for(memberRecord item: registeredMember){
+            if(item.getName().equals(name)){
+                return item;
+            }
+        }
+        return null;
+    }
+
     public boolean verifyMember(memberRecord member){
        if (!registeredMember.contains(member)){
            System.out.println("Membership has not been found " + member.getName());
@@ -45,14 +70,37 @@ public class Librarian {
            System.out.println(member.getName() + "is a member, she/he can borrow.");
            return true;
        } else {
-           System.out.println(member.getName() + "is not a member, she/he cannot borrow.");
+           System.out.println(member.getName() + "Member has already 5 books.");
            return false;
        }
     }
 
+    public boolean verifyMemberWithId(long memberId){
+        for(memberRecord item: registeredMember){
+            if(item.getMemberId() == memberId){
+                System.out.println("Membership has been found.");
+                return true;
+            }
+        }
+        System.out.println("Membership has not been found.");
+        System.out.println("Please request necessary info for registration.");
+        return false;
+    }
+
+    public boolean canBarrowBook(memberRecord member){
+        if(member.getNoBookIssued() < member.getMaxBookLimit()){
+            return true;
+        } else {
+            System.out.println(member.getName() + "Member has already 5 books.");
+            return false;
+        }
+    }
+
     public void issueBook(Book book, memberRecord member){
-        member.incBookIssued();
-        book.update_status();
+        if (book.getStatus().equals(Status.AVAILABLE)){
+            member.incBookIssued();
+            book.update_status();
+        }
     }
 
     public int calculateFine(){
@@ -70,6 +118,7 @@ public class Librarian {
     public void returnBook(Book book, memberRecord member){
         member.decBookIssued();
         book.update_status();
+        System.out.println("Successfully completed.");
     }
 
     @Override
