@@ -13,6 +13,9 @@ public class Reader extends Person {
         this.books = books;
         this.currentList = currentList;
     }
+    public Reader(String name){
+        super(name);
+    }
 
     public void purchase_book(Book purchasedBook){
         books.add(purchasedBook);

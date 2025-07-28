@@ -11,6 +11,9 @@ public class Author extends Person{
         super(name);
         this.books = books;
     }
+    public Author(String name){
+        super(name);
+    }
 
     public void new_Book(Book newBook){
         books.add(newBook);
@@ -23,5 +26,12 @@ public class Author extends Person{
     @Override
     public String whoYouAre() {
         return super.whoYouAre();
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "books=" + books +
+                '}';
     }
 }

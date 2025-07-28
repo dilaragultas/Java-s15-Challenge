@@ -1,6 +1,7 @@
 package Book;
 
 
+import Enums.Category;
 import Enums.Status;
 import Human.Author;
 
@@ -14,15 +15,17 @@ public abstract class Book {
    private Status status;
    private int edition;
    private LocalDate date_of_purchase;
+   private Category category;
 
-    public Book(long bookId, Author author, String name, double price, Status status, int edition, LocalDate date_of_purchase) {
+    public Book(long bookId, Author author, String name, double price, int edition, LocalDate date_of_purchase, Category category) {
         this.bookId = bookId;
         this.author = author;
         this.name = name;
         this.price = price;
-        this.status = status;
         this.edition = edition;
         this.date_of_purchase = date_of_purchase;
+        this.status = Status.AVAILABLE;
+        this.category = category;
     }
 
     public long getBookId() {
@@ -61,8 +64,21 @@ public abstract class Book {
         return status;
     }
 
-    public void update_status(Status status) {
-        this.status = status;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void update_status() {
+
+        if(status == Status.AVAILABLE){
+            status = Status.UNAVAILABLE;
+        } else if (status == Status.UNAVAILABLE){
+            status = Status.AVAILABLE;
+        }
     }
 
     public int getEdition() {
@@ -89,7 +105,17 @@ public abstract class Book {
 
     }
 
-    public void display(){
-
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", author=" + author +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", status=" + status +
+                ", edition=" + edition +
+                ", date_of_purchase=" + date_of_purchase +
+                ", category=" + category +
+                '}';
     }
 }

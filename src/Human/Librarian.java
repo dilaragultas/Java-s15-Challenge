@@ -1,5 +1,8 @@
 package Human;
 
+import Book.Book;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Librarian {
@@ -7,10 +10,10 @@ public class Librarian {
     private String password;
     private List<memberRecord> registeredMember;
 
-    public Librarian(String name, String password, List<memberRecord> registeredMember) {
+    public Librarian(String name, String password) {
         this.name = name;
         this.password = password;
-        this.registeredMember = registeredMember;
+        this.registeredMember = new ArrayList<>();
     }
 
     public String getName() {
@@ -47,8 +50,9 @@ public class Librarian {
        }
     }
 
-    public void issueBook(){
-        //kitap owneri atayabilmeli?
+    public void issueBook(Book book, memberRecord member){
+        member.incBookIssued();
+        book.update_status();
     }
 
     public int calculateFine(){
@@ -57,15 +61,23 @@ public class Librarian {
         return fine;
     }
 
-    public int createBill(){
+    public int createBill(Book book, memberRecord member){
         int totalAmount = 0;
         //faturayi olusturacak
         return totalAmount;
     }
 
-    public void returnBook(){
-
+    public void returnBook(Book book, memberRecord member){
+        member.decBookIssued();
+        book.update_status();
     }
 
-
+    @Override
+    public String toString() {
+        return "Librarian{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", registeredMember=" + registeredMember +
+                '}';
+    }
 }
