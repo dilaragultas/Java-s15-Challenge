@@ -36,6 +36,7 @@ public class Main {
             System.out.println("4) Lend book");
             System.out.println("5) Return book");
             System.out.println("6) Update book info");
+            System.out.println("7) Show all books");
             System.out.println("0) Stop application");
 
             int input = scanner.nextInt();
@@ -247,6 +248,9 @@ public class Main {
                             System.out.println("Successfully updated.");
                             break;
                     }
+                    break;
+                case 7:
+                    library.showBook();
                     break;
                 case 0:
                     System.out.println("Process completed.");

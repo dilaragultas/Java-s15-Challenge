@@ -110,7 +110,15 @@ public class Library {
     }
 
     public void showBook(){
-        System.out.println(books);
+
+        for (Book book : books) {
+            System.out.println("ID: " + book.getBookId());
+            System.out.println("Name: " + book.getName());
+            System.out.println("Author: " + book.getAuthor().getName());
+            System.out.println("Price: $" + book.getPrice());
+            System.out.println("Edition: " + book.getEdition());
+            System.out.println("Category: " + book.getCategory());
+        }
     }
 
     public void deleteBook(Book book){
